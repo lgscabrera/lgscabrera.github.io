@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luiz Gabriel Cabrera — Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0912;
+    --bg-raise: #120E1C;
+    --surface: #16101F;
+    --border: #2A2138;
+    --border-soft: #1E1830;
+    --text: #EDE9F5;
+    --text-dim: #9A90B3;
+    --text-faint: #6B6284;
+    --violet: #A78BFA;
+    --violet-deep: #7C3AED;
+    --magenta: #E879F9;
+    --green: #34D399;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image: radial-gradient(circle at 15% 0%, rgba(124,58,237,0.14), transparent 45%),
+                       radial-gradient(circle at 85% 15%, rgba(232,121,249,0.08), transparent 40%);
+    background-attachment: fixed;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+  ::selection{ background: var(--violet-deep); color:#fff;}
+
+  .sheet{ max-width: 940px; margin:0 auto; padding: 0 28px;}
+
+  header.nav{
+    position:sticky; top:0; z-index:30;
+    background: rgba(11,9,18,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{ max-width:940px; margin:0 auto; padding:16px 28px; display:flex; justify-content:space-between; align-items:center;}
+  .nav-id{ font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--text);}
+  .nav-id .prompt{ color:var(--violet);}
+  nav.links{ display:flex; gap:26px; font-family:'JetBrains Mono', monospace; font-size:12.5px;}
+  nav.links a{ text-decoration:none; color:var(--text-dim); transition:color .2s;}
+  nav.links a:hover{ color:var(--violet);}
+  nav.links a::before{ content:"./"; color:var(--text-faint);}
+
+  .hero{ padding: 90px 0 70px;}
+  .term{
+    background: var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow: 0 30px 60px -30px rgba(124,58,237,0.35);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    background: var(--bg-raise);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .dot{ width:11px; height:11px; border-radius:50%;}
+  .dot.r{background:#FF5F57;} .dot.y{background:#FEBC2E;} .dot.g{background:#28C840;}
+  .term-title{ margin-left:10px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint);}
+  .term-body{ padding:34px 32px 38px;}
+  .line{ font-family:'JetBrains Mono', monospace; font-size:14.5px; color:var(--text-dim); margin-bottom:6px;}
+  .line .p{ color:var(--green);}
+  .line .cmd{ color:var(--text);}
+  h1{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size: clamp(30px, 5.4vw, 46px);
+    letter-spacing:-0.01em;
+    line-height:1.18;
+    margin: 18px 0 14px;
+    background: linear-gradient(90deg, var(--text) 40%, var(--violet) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{ font-size:15.5px; color:var(--text-dim); max-width:640px; margin-bottom:26px;}
+  .badges{ display:flex; flex-wrap:wrap; gap:10px;}
+  .badge{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px;
+    border:1px solid var(--border); color:var(--text-dim);
+    padding:6px 12px; border-radius:20px;
+  }
+  .cursor{ display:inline-block; width:8px; height:16px; background:var(--violet); margin-left:2px; vertical-align:middle; animation: blink 1s step-end infinite;}
+  @keyframes blink{ 50%{ opacity:0;} }
+
+  section{ padding: 60px 0; border-top:1px solid var(--border-soft);}
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:32px;}
+  .section-tag{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--violet);}
+  .section-title{ font-family:'JetBrains Mono', monospace; font-size:21px; font-weight:700; color:var(--text);}
+  .section-rule{ flex:1; height:1px; background:var(--border-soft);}
+
+  .about-text p{ margin-bottom:14px; color:var(--text-dim); font-size:15px; max-width:680px;}
+  .about-text strong{ color:var(--text); font-weight:600;}
+  .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+  .chip{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--violet); background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.25); padding:5px 11px; border-radius:6px;}
+
+  .ic-box{
+    margin-top:28px;
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:24px 26px;
+  }
+  .ic-head{ display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .ic-head .dot-mini{ width:8px; height:8px; border-radius:50%; background:var(--green);}
+  .ic-head span{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.06em;}
+  .ic-box h3{ font-size:17px; color:var(--text); margin-bottom:10px;}
+  .ic-box p{ font-size:14px; color:var(--text-dim); margin-bottom:8px;}
+
+  .project{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:26px 28px;
+    margin-bottom:18px;
+    transition: border-color .2s, transform .2s;
+  }
+  .project:hover{ border-color: var(--violet); transform: translateY(-2px);}
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;}
+  .project-title-row{ display:flex; align-items:center; gap:10px;}
+  .project-title{ font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:600; color:var(--text);}
+  .project-link{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--violet);
+    text-decoration:none; display:flex; align-items:center; gap:6px;
+    border:1px solid rgba(167,139,250,0.3); padding:6px 12px; border-radius:6px;
+    white-space:nowrap; transition: background .2s;
+  }
+  .project-link:hover{ background: rgba(167,139,250,0.12);}
+  .project-tags{ display:flex; gap:7px; flex-wrap:wrap; margin-top:10px;}
+  .tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--text-dim); border:1px solid var(--border); padding:3px 9px; border-radius:5px;}
+  .project-desc{ margin-top:14px; font-size:14px; color:var(--text-dim); max-width:640px;}
+  .project-notes{ margin-top:14px; display:flex; flex-direction:column; gap:5px;}
+  .project-note{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--text-faint); padding-left:18px; position:relative;}
+  .project-note::before{ content:"+"; position:absolute; left:0; color:var(--green);}
+
+  .cert-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:16px;}
+  .cert{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:20px 22px; text-decoration:none; display:block;
+    transition: border-color .2s, transform .2s;
+  }
+  .cert:hover{ border-color:var(--violet); transform: translateY(-2px);}
+  .cert-icon{ font-family:'JetBrains Mono', monospace; color:var(--violet); font-size:13px; margin-bottom:10px;}
+  .cert-name{ font-size:14.5px; color:var(--text); font-weight:600; margin-bottom:4px;}
+  .cert-org{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint);}
+
+  .contact-term{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;
+  }
+  .contact-body{ padding:32px 32px 34px;}
+  .contact-body .line{ font-size:14.5px;}
+  .contact-links{ margin-top:18px; display:flex; flex-direction:column; gap:10px;}
+  .contact-links a{ font-family:'JetBrains Mono', monospace; font-size:14.5px; text-decoration:none; color:var(--text); display:flex; align-items:center; gap:10px;}
+  .contact-links a:hover{ color:var(--violet);}
+  .contact-links .key{ color:var(--violet);}
+
+  footer{ padding:34px 0 54px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint);}
+
+  .reveal{ opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;}
+  .reveal.show{ opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} .cursor{animation:none;} }
+
+  @media (max-width: 720px){
+    .nav-inner{ flex-direction:column; gap:10px; align-items:flex-start;}
+    nav.links{ gap:16px; flex-wrap:wrap;}
+    .term-body{ padding:26px 20px 30px;}
+    .project-top{ flex-direction:column;}
+  }
+
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--violet); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-id"><span class="prompt">~/</span>luiz-cabrera</div>
+    <nav class="links">
+      <a href="#sobre">sobre</a>
+      <a href="#projetos">projetos</a>
+      <a href="#certificados">certificados</a>
+      <a href="#contato">contato</a>
+    </nav>
+  </div>
+</header>
+
+<main class="sheet">
+
+  <section class="hero" style="border-top:none;">
+    <div class="term reveal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">luiz@portfolio — zsh</span>
+      </div>
+      <div class="term-body">
+        <div class="line"><span class="p">luiz@portfolio</span><span class="mono">:~$</span> <span class="cmd">whoami</span></div>
+        <h1>Luiz Gabriel Cabrera<br>Backend Developer</h1>
+        <p class="hero-sub">Graduando em Ciência da Computação pela UNIFAL-MG, em busca da primeira oportunidade para iniciar a carreira em desenvolvimento backend. Construi uma base sólida em lógica de programação, estruturas de dados e algoritmos por meio de projetos acadêmicos em Java, C/C++, Python e JavaScript, incluindo experiência prática com testes automatizados, CI/CD e containerização em um sistema de gestão acadêmica orientado a objetos. Participo de um projeto de Iniciação Científica desenvolvendo gráficos interativos em JavaScript/Plotly.js. Possui certificação em Google Cloud Foundations (SENAI).</p>
+        <div class="badges">
+          <span class="badge">UNIFAL-MG · Ciência da Computação</span>
+          <span class="badge">Foco: Backend</span>
+          <span class="badge">4º semestre</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-head reveal">
+      <span class="section-tag">01</span>
+      <span class="section-title">sobre()</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="about-text reveal">
+      <p>Curso Ciência da Computação na <strong>UNIFAL-MG</strong>, atualmente no quarto semestre, com foco em <strong>desenvolvimento backend</strong>. Antes disso, fiz o técnico em Eletromecânica pelo SENAI.</p>
+      <div class="chips">
+        <span class="chip">Java</span>
+        <span class="chip">C</span>
+        <span class="chip">Python</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Docker</span>
+        <span class="chip">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="ic-box reveal">
+      <div class="ic-head"><span class="dot-mini"></span><span>Iniciação Científica</span></div>
+      <h3>E-book interativo de visualização de dados</h3>
+      <p>Construção de um e-book interativo (JavaScript + Plotly.js) voltado a estudantes do ensino fundamental e médio, desenvolvendo um novo tipo de gráfico a cada semana.</p>
+    </div>
+  </section>
+  <section id="projetos">
+    <div class="section-head reveal">
+      <span class="section-tag">02</span>
+      <span class="section-title">projetos()</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title-row">
+          <span class="project-title">Academic System</span>
+        </div>
+        <a class="project-link" href="https://github.com/lgscabrera/TrabalhoFinal_POO" target="_blank" rel="noopener">↗ github.com/lgscabrera/TrabalhoFinal_POO</a>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Java</span><span class="tag">JavaFX</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">Python</span>
+      </div>
+      <p class="project-desc">Trabalho final de Programação Orientada a Objetos: sistema de gestão acadêmica com CLI e interface JavaFX, persistência em TXT/XML/JSON, RBAC, validação e logging. Responsável por DevOps e infraestrutura de testes do grupo.</p>
+      <div class="project-notes">
+        <div class="project-note">pom.xml reescrito com Lombok, JUnit 5, Mockito, Jackson, SLF4J/Logback</div>
+        <div class="project-note">5 workflows de GitHub Actions + Dockerfile multi-stage</div>
+        <div class="project-note">Portabilidade em andamento para Python com interface Tkinter</div>
+      </div>
+    </div>
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title-row">
+          <span class="project-title">TP2 — Pareamento de Sequências de DNA</span>
+        </div>
+        <a class="project-link" href="https://github.com/lgscabrera/TP2_AEDsIII" target="_blank" rel="noopener">↗ github.com/lgscabrera/TP2_AEDsIII</a>
+      </div>
+      <div class="project-tags">
+        <span class="tag">C</span><span class="tag">Programação Dinâmica</span><span class="tag">Python</span>
+      </div>
+      <p class="project-desc">Trabalho prático de AEDS 3: alinhamento de sequências de DNA comparando Programação Dinâmica (solução ótima) e um algoritmo Guloso (foco em velocidade), com análise experimental de tempo e memória.</p>
+    </div>
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title-row">
+          <span class="project-title">TP3 — Caminho Mais Curto em Grafos</span>
+        </div>
+        <a class="project-link" href="https://github.com/lgscabrera/TP3_AEDsIII" target="_blank" rel="noopener">↗ github.com/lgscabrera/TP3_AEDsIII</a>
+      </div>
+      <div class="project-tags">
+        <span class="tag">C</span><span class="tag">Grafos</span><span class="tag">Dijkstra</span><span class="tag">Bellman-Ford</span>
+      </div>
+      <p class="project-desc">Implementação e comparação de três algoritmos de caminho mais curto — Dijkstra, Duan (2025) e Bellman-Ford — testados em diferentes topologias de grafo, com análise de desempenho em larga escala.</p>
+    </div>
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-title-row">
+          <span class="project-title">TP4 — Problema da Mochila</span>
+        </div>
+        <a class="project-link" href="https://github.com/lgscabrera/TP4_AEDsIII" target="_blank" rel="noopener">↗ github.com/lgscabrera/TP4_AEDsIII</a>
+      </div>
+      <div class="project-tags">
+        <span class="tag">C</span><span class="tag">Otimização</span>
+      </div>
+      <p class="project-desc">Trabalho prático de AEDS 3 com geração automatizada de instâncias variando tamanho, capacidade e correlação entre peso e valor, para testar o desempenho dos algoritmos implementados.</p>
+    </div>
+  </section>
+
+  <section id="certificados">
+    <div class="section-head reveal">
+      <span class="section-tag">03</span>
+      <span class="section-title">certificados()</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="cert-grid reveal">
+      <a class="cert" href="certificados/certificado-google-cloud-foundations.pdf" target="_blank" rel="noopener">
+        <div class="cert-icon">PDF ↗</div>
+        <div class="cert-name">Implantação de Serviços em Nuvem — Google Cloud Foundations</div>
+        <div class="cert-org">SENAI-SP · 40h</div>
+      </a>
+      <a class="cert" href="certificados/certificado-autodesk-inventor.pdf" target="_blank" rel="noopener">
+        <div class="cert-icon">PDF ↗</div>
+        <div class="cert-name">Autodesk Inventor</div>
+        <div class="cert-org">SENAI-SP · 80h</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="section-head reveal">
+      <span class="section-tag">04</span>
+      <span class="section-title">contato()</span>
+      <span class="section-rule"></span>
+    </div>
+    <div class="contact-term reveal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">contact.sh</span>
+      </div>
+      <div class="contact-body">
+        <div class="line"><span class="p">luiz@portfolio</span><span class="mono">:~$</span> <span class="cmd">cat contato.txt</span><span class="cursor"></span></div>
+        <div class="contact-links">
+          <a href="mailto:luizgabriel.cabreraa@gmail.com"><span class="key">email:</span> luizgabriel.cabreraa@gmail.com</a>
+          <a href="https://github.com/lgscabrera" target="_blank" rel="noopener"><span class="key">github:</span> github.com/lgscabrera</a>
+          <a href="https://www.linkedin.com/in/luizgabrielcabrera/" target="_blank" rel="noopener"><span class="key">linkedin:</span> linkedin.com/in/luizgabrielcabrera</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  luiz gabriel cabrera — ciência da computação / unifal-mg — rev. 2026
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
